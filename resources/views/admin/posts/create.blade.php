@@ -6,12 +6,16 @@
             Create a new post        
         </div>
         <div class="card-body">
-            <form action="/post/store" method="post">
+            <form action="{{ route('post.store')}}" method="post">
                 {{ csrf_field() }}
 
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" name="title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="category_id">Category</label>
+                    <select class="form-control" name="category_id" id="category_id">Select a category </select>
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
@@ -20,11 +24,7 @@
                 <div class="form-group">
                     <label for="image_link">Featured Image</label>
                     <input type="file" name="image_link" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="category_id">Category</label>
-                    <select class="form-control" name="category_id" id="category_id">Select a category </select>
-                </div>
+                </div>                
                 <div class="form-group">
                    <div class="text-center">
                    <button class="btn btn-success" type="submit"> Create post </button>
