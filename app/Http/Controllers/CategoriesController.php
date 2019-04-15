@@ -3,23 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Post;
 
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class CategoriesController extends Controller
 {
-   
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        //
+        // $categories = Category::all();
+        return view('admin.categories.index')->with('categories', Category::all());
     }
 
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.posts.create')->with('categories', $categories);
+        return view('admin.categories.create');
     }
 
     /**
@@ -30,28 +37,21 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-       
         $this->validate($request, [
-            'title' => 'required|max:255',
-            'category_id' => 'required',
-            'content' => 'required',
-            'image_link' => 'required|image'
+            'name' => 'required|max:255',
+            'description' => 'required'
         ]);
 
         //  Dd($request->all());
 
-        $post = new Post;
+        $category = new Category;
 
-        $post->title = $request->title;
-        $post->category_id = $request->category_id;
-        $post->content = $request->content;
-        $post->image_link = $request->image_link;
+        $category->name = $request->name;
+        $category->content = $request->description;
 
-        $post->save();
+        $category->save();    
 
         return redirect()->back();
-
-
     }
 
     /**
@@ -73,7 +73,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+
+        return view('admin.categories.edit')->with('category', $category);
     }
 
     /**
@@ -85,7 +87,14 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->content = $request->description;
+
+        $category->update();
+
+        return redirect()->route('categories'); 
+
     }
 
     /**
@@ -96,6 +105,10 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+
+        $category->delete();
+        return redirect()->back();
+
     }
 }

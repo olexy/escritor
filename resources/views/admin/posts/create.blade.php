@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @include('admin.includes.errors')
+
     <div class="card">
         <div class="card-header title">
             Create a new post        
         </div>
         <div class="card-body">
-            <form action="{{ route('post.store')}}" method="post">
+            <form action="{{ route('post.store')}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="form-group">
@@ -15,7 +18,13 @@
                 </div>
                 <div class="form-group">
                     <label for="category_id">Category</label>
-                    <select class="form-control" name="category_id" id="category_id">Select a category </select>
+                    <select class="form-control" name="category_id" id="category_id"> 
+                    <option></option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}"> {{ $category->name }}
+                    </option>
+                    @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
