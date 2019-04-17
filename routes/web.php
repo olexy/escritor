@@ -21,14 +21,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    //POST ROUTES
     Route::get('/post/create', 'PostsController@create')->name('post.create');
 
+    Route::get('/posts', 'PostsController@index')->name('posts');
+
+    
+
+     //CATEGORY ROUTES     
     Route::get('/category/create', 'CategoriesController@create')->name('category.create');
 
     Route::get('/category/edit/{id}', 'CategoriesController@edit')->name('category.edit');
 
     Route::get('/category/delete/{id}', 'CategoriesController@destroy')->name('category.delete');
-
 
     Route::get('/categories', 'CategoriesController@index')->name('categories');
     

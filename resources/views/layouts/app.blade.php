@@ -110,6 +110,9 @@
                                     <a href="{{ route('categories') }}" class="href">View categories</a>
                                 </li>
                                 <li class="list-group-item">
+                                    <a href="{{ route('posts') }}" class="href">All posts</a>
+                                </li>
+                                <li class="list-group-item">
                                     <a href="{{ route('category.create') }}" class="href">Create new category</a>
                                 </li>
                                 <li class="list-group-item">
