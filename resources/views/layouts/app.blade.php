@@ -38,6 +38,12 @@
     @endif    
 </script>
 
+<script>
+    @if(Session::has('info'))
+        toastr.info("{{ Session::get('info') }}")
+    @endif    
+</script>
+
 
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">

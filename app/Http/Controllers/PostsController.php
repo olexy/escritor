@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+Use Session;
 
 use Illuminate\Http\Request;
 
@@ -18,7 +19,16 @@ class PostsController extends Controller
 
     public function create()
     {
+        
         $categories = Category::all();
+
+        if($categories->count() == 0)
+        {
+            Session::flash('info', 'You must have a category to post');
+
+            return redirect()->back();
+        }
+
         return view('admin.posts.create')->with('categories', $categories);
     }
 
@@ -40,14 +50,32 @@ class PostsController extends Controller
 
         //  Dd($request->all());
 
-        $post = new Post;
+        $image = $request->image_link;
+        $image_new_name = time().$image->getClientOriginalName();
 
-        $post->title = $request->title;
-        $post->category_id = $request->category_id;
-        $post->content = $request->content;
-        $post->image_link = $request->image_link;
+        $image->move('uploads/posts', $image_new_name);
+
+
+        // $post = new Post;
+
+        // $post->title = $request->title;
+        // $post->category_id = $request->category_id;
+        // $post->content = $request->content;
+        // $post->image_link = 'uploads/posts'. $image_new_name;
+
+        // THIS THROWS mass assignment exception
+
+        $post = Post::create([
+            'title' =>  $request->title,
+            'category_id' =>  $request->category_id,
+            'content' => $request->content,
+            'image_link' => 'uploads/posts/'. $image_new_name,
+            'slug' => str_slug($request->title)
+        ]);
 
         $post->save();
+
+        Session::flash('success', 'Post created successfully!');
 
         return redirect()->back();
 
