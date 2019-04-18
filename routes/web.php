@@ -26,6 +26,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::get('/posts', 'PostsController@index')->name('posts');
 
+    Route::get('/post/edit/{id}', 'PostsController@edit')->name('post.edit');
+
+    Route::post('/post/update/{id}', 'PostsController@update')->name('post.update');
+
+    Route::get('/post/delete/{id}', 'PostsController@destroy')->name('post.delete');
+
+    Route::get('/posts/trashed', 'PostsController@trashed')->name('posts.trashed');
+
+    Route::get('/post/restore/{id}', 'PostsController@restore')->name('post.restore');
+
+    Route::get('/post/destroy/{id}', 'PostsController@permDelete')->name('post.destroy');
     
 
      //CATEGORY ROUTES     

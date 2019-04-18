@@ -2,9 +2,8 @@
 
 @section('content')
     <div class="card">
-        <div class="card-body">
-            <div class="card-body"> 
-            <h2 class="card-title font-weight-bold">All posts</h2>
+        <div class="card-body"> 
+            <h2 class="card-title text-center font-weight-bold">Trashed posts</h2>
             <table class="table table-hover table-striped  table-dark">
                 <thead class="thead-light">
                     <th>
@@ -20,13 +19,17 @@
                         Edit
                     </th>
                     <th>
-                        Trash
+                        Restore
+                    </th>
+                    <th>
+                        Destroy
                     </th>
                 </thead>       
                     
                 <tbody>
                     @if($posts->count() > 0)
                         @foreach($posts as $post)
+
                             <tr>
                                 <td>
                                     <img src=" {{ $post->image_link }}" alt="{{ $post->title }}" height="75px" width="80px">
@@ -38,24 +41,28 @@
                                     {{ $post->content }}
                                 </td>
                                 <td>
-                                    <a href="{{ route('post.edit', ['id' => $post->id]) }}" class="btn btn-sm btn-info">
+                                    <a href="" class="btn btn-sm btn-info">
                                         Edit
                                     </a>
                                 </td>
-
                                 <td>
-                                    <a href="{{ route('post.delete', ['id' => $post->id]) }}" class="btn btn-sm btn-danger">
-                                        Trash
+                                    <a href="{{ route('post.restore', ['id' => $post->id]) }}" class="btn btn-sm btn-success">
+                                        Restore
                                     </a>
                                 </td>
-                            </tr>                
+                                <td>
+                                    <a href="{{ route('post.destroy', ['id' => $post->id]) }}" class="btn btn-sm btn-danger">
+                                        Destroy
+                                    </a>
+                                </td>
+                            </tr>
+                        
                         @endforeach
-
                     @else
                         <tr>
-                        <th colspan="5" class="text-center" > None at this time</th>
+                            <th colspan="5" class="text-center" > None at this time</th>
                         </tr>
-                    @endif                 
+                    @endif                
                 </tbody>
             </table>
         </div>

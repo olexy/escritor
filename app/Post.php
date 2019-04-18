@@ -19,15 +19,17 @@ class Post extends Model
         return asset($image_link);
     }
 
-    public function getContentAttribute($content)
-    {
-        return str_limit($content, 100);
-    }
+    // This affects the population of edit view
+    // So other db fields should be consider for this
+    // public function getContentAttribute($content)
+    // {
+    //     return str_limit($content, 100);
+    // }
 
-    public function getTitleAttribute($title)
-    {
-        return str_limit($title, 30);
-    }
+    // public function getTitleAttribute($title)
+    // {
+    //     return str_limit($title, 30);
+    // }
 
     protected $dates = ['deteled_at'];
     
