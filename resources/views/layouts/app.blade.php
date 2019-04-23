@@ -13,13 +13,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
-
-
-    <!-- <script>
-        @if(Session::has('success'))
-            toastr.success("{{ Session::get('success') }}")
-        @endif    
-    </script> -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -28,9 +22,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+  
     
 </head>
 <body>
+
 
 <script>
     @if(Session::has('success'))
@@ -113,6 +110,9 @@
                                     <a href="{{ route('posts') }}" class="href">All posts</a>
                                 </li>
                                 <li class="list-group-item">
+                                    <a href="{{ route('tags') }}" class="href">All tags</a>
+                                </li>
+                                <li class="list-group-item">
                                     <a href="{{ route('posts.trashed') }}" class="href">Trashed posts</a>
                                 </li>
                                 <li class="list-group-item">
@@ -120,6 +120,9 @@
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ route('post.create') }}" class="href">Create new post</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ route('tag.create') }}" class="href">Create new tag</a>
                                 </li>
                             </ul>
                         </div>
