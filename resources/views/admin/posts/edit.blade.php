@@ -21,7 +21,11 @@
                     <select class="form-control" name="category_id" id="category_id"> 
                     <option></option>
                     @foreach($categories as $category)
-                    <option value="{{ $category->id }}"> {{ $category->name }}
+                    <option value="{{ $category->id }}"
+                        @if($post->category->id == $category->id)
+                            selected
+                        @endif                      
+                    > {{ $category->name }}
                     </option>
                     @endforeach
                     </select>
@@ -29,6 +33,19 @@
                 <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" cols="5" rows="5" class="form-control">{{ $post->content }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Select Tags</label>
+                    <br>
+                    @foreach($tags as $tag)
+                          <label><input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                            @foreach($post->tags as $t)
+                                @if($tag->id == $t->id)
+                                    checked
+                                @endif
+                            @endforeach
+                          > {{ $tag->tag }}</label>           
+                    @endforeach 
                 </div>
                 <div class="form-group">
                     <label for="image_link">Featured Image</label>

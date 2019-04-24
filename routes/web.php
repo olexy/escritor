@@ -66,7 +66,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
       Route::post('/tag/update', 'TagsController@update')->name('tag.update');
  
      Route::get('/tag/delete/{id}', 'TagsController@destroy')->name('tag.delete');   
-
 });
+
+Route::get('/test', function(){
+    return App\Tag::find(5)->posts;
+});  
+
 
 

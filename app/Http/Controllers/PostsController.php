@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Post;
+use App\Tag;
 Use Session;
 
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class PostsController extends Controller
     {
         
         $categories = Category::all();
+        $tags = Tag::all();
 
         if($categories->count() == 0)
         {
@@ -29,7 +31,8 @@ class PostsController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.posts.create')->with('categories', $categories);
+        return view('admin.posts.create')->with('categories', $categories)
+                                        ->with('tags', $tags);
     }
 
     /**
@@ -45,7 +48,8 @@ class PostsController extends Controller
             'title' => 'required|max:255',
             'category_id' => 'required',
             'content' => 'required',
-            'image_link' => 'required|image'
+            'image_link' => 'required|image',
+            'tags' => 'required'
         ]);
 
         //  Dd($request->all());
@@ -58,12 +62,14 @@ class PostsController extends Controller
 
         // $post = new Post;
 
+        // This one below works without setting mass assignment exception
+
         // $post->title = $request->title;
         // $post->category_id = $request->category_id;
         // $post->content = $request->content;
         // $post->image_link = 'uploads/posts'. $image_new_name;
 
-        // THIS THROWS mass assignment exception
+        // This one below mass assignment exception
 
         $post = Post::create([
             'title' =>  $request->title,
@@ -73,7 +79,7 @@ class PostsController extends Controller
             'slug' => str_slug($request->title)
         ]);
 
-        $post->save();
+        $post->tags()->attach($request->tags);
 
         Session::flash('success', 'Post created successfully!');
 
@@ -104,8 +110,10 @@ class PostsController extends Controller
         $post = Post::find($id);
 
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit')->with('post', $post)->with('categories', $categories);
+        return view('admin.posts.edit')->with('post', $post)                     ->with('categories', $categories)
+                            ->with('tags', $tags);
     }
 
     /**
@@ -120,7 +128,8 @@ class PostsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'category_id' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'tags' => 'required'
         ]);
 
         $post = Post::find($id);
@@ -142,6 +151,8 @@ class PostsController extends Controller
         $post->slug = str_slug($request->title);
 
         $post->update();
+
+        $post->tags()->sync($request->tags);;
 
         Session::flash('success', 'Post updated successfully!');
 

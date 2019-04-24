@@ -42,7 +42,6 @@
                                         Edit
                                     </a>
                                 </td>
-
                                 <td>
                                     <a href="{{ route('post.delete', ['id' => $post->id]) }}" class="btn btn-sm btn-danger">
                                         Trash

@@ -110,7 +110,7 @@
                                     <a href="{{ route('posts') }}" class="href">All posts</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="{{ route('tags') }}" class="href">All tags</a>
+                                    <a href="{{ route('tags') }}" class="href">Tags</a>
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ route('posts.trashed') }}" class="href">Trashed posts</a>
@@ -120,9 +120,6 @@
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ route('post.create') }}" class="href">Create new post</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{ route('tag.create') }}" class="href">Create new tag</a>
                                 </li>
                             </ul>
                         </div>
