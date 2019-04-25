@@ -6,7 +6,7 @@
 
     <div class="card">
         <div class="card-header title">
-            Create a new post        
+            Create Post        
         </div>
         <div class="card-body">
             <form action="{{ route('post.store')}}" method="post" enctype="multipart/form-data">
@@ -27,27 +27,35 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" cols="5" rows="5" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" cols="5" rows="5" class="form-control"></textarea>
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <label for="tags">Tags</label>
                     <select multiple class="form-control" name="tags[]" id="tags">
                     @foreach($tags as $tag)
                     <option value="{{ $tag->id }}">{{ $tag->tag }}</option>  
                     @endforeach          
                     </select>
-                </div> -->
-                <div class="form-group">
+                </div>
+                <!-- <div class="form-group">
                     <label for="tags">Select Tags</label>
                     <br>
                     @foreach($tags as $tag)
                           <label><input type="checkbox" name="tags[]" value="{{ $tag->id }}"> {{ $tag->tag }}</label>           
                     @endforeach 
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for="image_link">Featured Image</label>
                     <input type="file" name="image_link" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="published_at">Published At</label>
+                    <input type="text" name="published_at" class="form-control">
                 </div>                
                 <div class="form-group">
                    <div class="text-center">

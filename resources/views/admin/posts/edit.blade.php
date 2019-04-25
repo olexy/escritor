@@ -31,6 +31,10 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" cols="5" rows="5" class="form-control">{{ $post->description }}</textarea>
+                </div>
+                <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" cols="5" rows="5" class="form-control">{{ $post->content }}</textarea>
                 </div>
@@ -50,7 +54,11 @@
                 <div class="form-group">
                     <label for="image_link">Featured Image</label>
                     <input type="file" name="image_link" class="form-control">
-                </div>                
+                </div> 
+                <div class="form-group">
+                    <label for="published_at">Published At</label>
+                    <input type="text" name="published_at" class="form-control">
+                </div>               
                 <div class="form-group">
                    <div class="text-center">
                    <button class="btn btn-success" type="submit"> Edit post </button>

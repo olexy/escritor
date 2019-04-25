@@ -13,7 +13,7 @@
                         Title
                     </th>
                     <th>
-                        Content
+                        Blurb
                     </th>
                     <th>
                         Edit
@@ -38,7 +38,7 @@
                                     {{ $post->title }}
                                 </td>
                                 <td>
-                                    {{ $post->content }}
+                                    {{ $post->description }}
                                 </td>
                                 <td>
                                     <a href="" class="btn btn-sm btn-info">

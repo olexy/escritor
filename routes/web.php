@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Post;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,15 +25,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     //POST ROUTES
     Route::get('/post/create', 'PostsController@create')->name('post.create');
 
-    Route::get('/posts', 'PostsController@index')->name('posts');
+    Route::resource('posts', 'PostsController');
 
     Route::get('/post/edit/{id}', 'PostsController@edit')->name('post.edit');
 
     Route::post('/post/update/{id}', 'PostsController@update')->name('post.update');
 
-    Route::get('/post/delete/{id}', 'PostsController@destroy')->name('post.delete');
+    Route::delete('/posts/{post}', 'PostsController@destroy')->name('posts.destroy');
 
-    Route::get('/posts/trashed', 'PostsController@trashed')->name('posts.trashed');
+    Route::get('trashed-posts', 'PostsController@trashed')->name('trashed-post.index');
 
     Route::get('/post/restore/{id}', 'PostsController@restore')->name('post.restore');
 
@@ -63,14 +64,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::get('/tag/edit/{id}', 'TagsController@edit')->name('tag.edit');
 
-      Route::post('/tag/update', 'TagsController@update')->name('tag.update');
+    Route::post('/tag/update', 'TagsController@update')->name('tag.update');
  
-     Route::get('/tag/delete/{id}', 'TagsController@destroy')->name('tag.delete');   
+    Route::get('/tag/delete/{id}', 'TagsController@destroy')->name('tag.delete');   
 });
 
 Route::get('/test', function(){
     return App\Tag::find(5)->posts;
 });  
+
+View::composer(['layouts.app'], function($view){
+    $trashed = Post::onlyTrashed()->get();
+
+    $view->with('trashed', $trashed);
+});
 
 
 

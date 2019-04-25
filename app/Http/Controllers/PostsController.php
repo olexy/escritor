@@ -8,6 +8,7 @@ use App\Tag;
 Use Session;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Posts\CreatePostsRequest;
 
 class PostsController extends Controller
 {
@@ -41,47 +42,23 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostsRequest $request)
     {
-       
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'category_id' => 'required',
-            'content' => 'required',
-            'image_link' => 'required|image',
-            'tags' => 'required'
-        ]);
-
-        //  Dd($request->all());
-
-        $image = $request->image_link;
-        $image_new_name = time().$image->getClientOriginalName();
-
-        $image->move('uploads/posts', $image_new_name);
-
-
-        // $post = new Post;
-
-        // This one below works without setting mass assignment exception
-
-        // $post->title = $request->title;
-        // $post->category_id = $request->category_id;
-        // $post->content = $request->content;
-        // $post->image_link = 'uploads/posts'. $image_new_name;
-
-        // This one below mass assignment exception
+        $image = $request->image_link->store('posts');
 
         $post = Post::create([
             'title' =>  $request->title,
             'category_id' =>  $request->category_id,
+            'description' =>  $request->description,
             'content' => $request->content,
-            'image_link' => 'uploads/posts/'. $image_new_name,
+            'image_link' => 'storage/'. $image,
+            'published_at' => $request->published_at,
             'slug' => str_slug($request->title)
         ]);
 
         $post->tags()->attach($request->tags);
 
-        Session::flash('success', 'Post created successfully!');
+        Session()->flash('success', 'Post created successfully!');
 
         return redirect()->back();
 
@@ -128,6 +105,7 @@ class PostsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'category_id' => 'required',
+            'description' => 'required',
             'content' => 'required',
             'tags' => 'required'
         ]);
@@ -147,7 +125,9 @@ class PostsController extends Controller
         
         $post->title = $request->title;
         $post->category_id = $request->category_id;
+        $post->description = $request->description;
         $post->content = $request->content;
+        $post->published_at = $request->published_at;
         $post->slug = str_slug($request->title);
 
         $post->update();
@@ -168,20 +148,29 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
-        $post->delete();
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
 
-        Session::flash('success', 'Post successfully trashed!');
+        if($post->trashed()){
+            $post->forceDelete();
+        } else {
+            $post->delete();
+        }
+
+        Session::flash('success', 'Post deleted successfully');
 
         return redirect()->back();
     }
 
     public function trashed()
     {
-        $posts = Post::onlyTrashed()->get();
-        //Dd($post);
+        // $posts = Post::onlyTrashed()->get();
+        // //Dd($post);
 
-        return view('admin.posts.trash')->with('posts', $posts);
+        // return view('admin.posts.trash')->withPosts($posts);
+
+        $trashed = Post::withTrashed()->get();
+
+        return view('admin.posts.index')->withPosts($trashed);
     }
 
     public function restore($id)

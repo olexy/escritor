@@ -11,7 +11,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title', 'content', 'category_id', 'image_link', 'slug',
+        'title', 'content', 'category_id', 'description', 'published_at', 'image_link', 'slug',
     ];
     
     public function getImageLinkAttribute($image_link)

@@ -107,19 +107,21 @@
                                     <a href="{{ route('categories') }}" class="href">View categories</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="{{ route('posts') }}" class="href">All posts</a>
+                                    <a href="{{ route('posts.index') }}" class="href">All posts</a>
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ route('tags') }}" class="href">Tags</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{ route('posts.trashed') }}" class="href">Trashed posts</a>
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ route('category.create') }}" class="href">Create new category</a>
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ route('post.create') }}" class="href">Create new post</a>
+                                </li>
+                            </ul>
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-danger mt-3">
+                                    <a href="{{ route('trashed-post.index') }}" class="href">Trashed posts <span class="badge badge-primary badge-pill">{{$trashed->count() }}</span></a>
                                 </li>
                             </ul>
                         </div>
