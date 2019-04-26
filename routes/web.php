@@ -23,13 +23,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/home', 'HomeController@index')->name('home');
 
     //POST ROUTES
+
+
     Route::get('/post/create', 'PostsController@create')->name('post.create');
 
     Route::resource('posts', 'PostsController');
 
-    Route::get('/post/edit/{id}', 'PostsController@edit')->name('post.edit');
+    Route::get('/posts/{post}', 'PostsController@edit')->name('posts.edit');
 
-    Route::post('/post/update/{id}', 'PostsController@update')->name('post.update');
+    Route::put('/post/update/{id}', 'PostsController@update')->name('post.update');
 
     Route::delete('/posts/{post}', 'PostsController@destroy')->name('posts.destroy');
 
@@ -37,7 +39,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::get('/post/restore/{id}', 'PostsController@restore')->name('post.restore');
 
-    Route::get('/post/destroy/{id}', 'PostsController@permDelete')->name('post.destroy');
+    // Route::get('/post/destroy/{id}', 'PostsController@permDelete')->name('post.destroy');
     
 
      //CATEGORY ROUTES     

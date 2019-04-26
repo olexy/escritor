@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-            <h2 class="card-title font-weight-bold">All posts</h2>
+            <h4 class="card-title font-weight-bold">All posts</h4>
             <table class="table table-hover table-striped  table-dark">
                 <thead class="thead-light">
                     <th>
@@ -37,7 +37,7 @@
                                 </td>
                                 <td>
                                     @if(!$post->trashed())
-                                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-info">
                                         Edit
                                     </a>
                                     @else

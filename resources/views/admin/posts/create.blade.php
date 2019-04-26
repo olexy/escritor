@@ -6,15 +6,21 @@
 
     <div class="card">
         <div class="card-header title">
-            Create Post        
+            {{isset($post) ? 'Edit Post': 'Create Post'}}       
         </div>
         <div class="card-body">
-            <form action="{{ route('post.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ isset($post) ? route('post.update', ['id' => $post->id]) : route('post.store') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
+
+                @if(isset($post))
+                
+                @method('PUT')
+
+                @endif
 
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" class="form-control">
+                    <input type="text" name="title" value="{{ isset($post) ? $post->title: ''}}" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="category_id">Category</label>
@@ -28,11 +34,12 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea name="description" id="description" cols="5" rows="5" class="form-control"></textarea>
+                    <textarea name="description" id="description" class="form-control">{{ isset($post) ? $post->description: ''}} </textarea>
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea name="content" id="content" cols="5" rows="5" class="form-control"></textarea>
+                    <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content: ''}}" class="trix-content">
+                    <trix-editor input="content"></trix-editor>
                 </div>
                 <div class="form-group">
                     <label for="tags">Tags</label>
@@ -55,16 +62,41 @@
                 </div>
                 <div class="form-group">
                     <label for="published_at">Published At</label>
-                    <input type="text" name="published_at" class="form-control">
-                </div>                
+                    <input type="text" name="published_at" id="published_at" value="{{ isset($post) ? $post->published_at: ''}}" class="form-control">
+                </div>
+                @if(isset($post)) 
+                <div class="form-group">
+                    <img src="{{ asset($post->image_link)}}" alt="$post->title" style="width: 50%">
+                </div>
+                @endif
+                             
                 <div class="form-group">
                    <div class="text-center">
-                   <button class="btn btn-success" type="submit"> Create post </button>
+                   <button class="btn btn-success" type="submit">  {{isset($post) ? 'Edit Post': 'Create Post'}} </button>
                    </div>
                 </div>
             
             </form>
         </div>
     </div>
+
+@endsection
+
+@section('script')
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+    flatpickr("#published_at", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i"
+    });
+</script>
+
+@endsection
+
+@section('css')
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 @endsection

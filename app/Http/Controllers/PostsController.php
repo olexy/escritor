@@ -9,6 +9,9 @@ Use Session;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Posts\CreatePostsRequest;
+use App\Http\Requests\Posts\UpdatePostRequest;
+
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -82,14 +85,14 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::find($id);
+        // $post = Post::find($id);
 
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('admin.posts.edit')->with('post', $post)                     ->with('categories', $categories)
+        return view('admin.posts.create')->with('post', $post)                     ->with('categories', $categories)
                             ->with('tags', $tags);
     }
 
@@ -100,27 +103,17 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'category_id' => 'required',
-            'description' => 'required',
-            'content' => 'required',
-            'tags' => 'required'
-        ]);
-
         $post = Post::find($id);
-
-        // Dd($post);
 
         if($request->hasFile('image_link'))
         {
-            $image = $request->image_link;
-            $image_new_name = time().$image->getClientOriginalName();
-            $image->move('uploads/posts', $image_new_name);
+            $image = $request->image_link->store('posts');
 
-            $post->image_link = 'uploads/posts/'. $image_new_name;
+            Storage::delete($post->image_link);
+
+            $post->image_link = 'storage/'. $image;
         }  
         
         $post->title = $request->title;
@@ -136,7 +129,7 @@ class PostsController extends Controller
 
         Session::flash('success', 'Post updated successfully!');
 
-        return redirect()->route('posts');      
+        return redirect()->route('posts.index');      
        
     }
 
@@ -151,6 +144,7 @@ class PostsController extends Controller
         $post = Post::withTrashed()->where('id', $id)->firstOrFail();
 
         if($post->trashed()){
+            Storage::delete($post->image_link);
             $post->forceDelete();
         } else {
             $post->delete();
@@ -163,11 +157,6 @@ class PostsController extends Controller
 
     public function trashed()
     {
-        // $posts = Post::onlyTrashed()->get();
-        // //Dd($post);
-
-        // return view('admin.posts.trash')->withPosts($posts);
-
         $trashed = Post::withTrashed()->get();
 
         return view('admin.posts.index')->withPosts($trashed);
@@ -180,18 +169,18 @@ class PostsController extends Controller
 
         Session::flash('success', 'Post successfully restored');
       
-        return redirect()->route('posts'); 
+        return redirect()->route('posts.index'); 
     }
 
-    public function permDelete($id)
-    {
-        $post = Post::withTrashed()->where('id', $id)->first();
-        //Dd($post);
-        $post->forceDelete();
+    // public function permDelete($id)
+    // {
+    //     $post = Post::withTrashed()->where('id', $id)->first();
+    //     //Dd($post);
+    //     $post->forceDelete();
         
-        Session::flash('success', 'Post permanently deleted');
+    //     Session::flash('success', 'Post permanently deleted');
 
-        return redirect()->back();
+    //     return redirect()->back();
        
-    }
+    // }
 }
