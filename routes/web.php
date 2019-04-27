@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::get('trashed-posts', 'PostsController@trashed')->name('trashed-post.index');
 
-    Route::get('/post/restore/{id}', 'PostsController@restore')->name('post.restore');
+    Route::put('/post/restore/{id}', 'PostsController@restore')->name('post.restore');
 
     // Route::get('/post/destroy/{id}', 'PostsController@permDelete')->name('post.destroy');
     

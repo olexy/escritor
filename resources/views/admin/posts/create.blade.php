@@ -41,21 +41,21 @@
                     <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content: ''}}" class="trix-content">
                     <trix-editor input="content"></trix-editor>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="tags">Tags</label>
                     <select multiple class="form-control" name="tags[]" id="tags">
-                    @foreach($tags as $tag)
-                    <option value="{{ $tag->id }}">{{ $tag->tag }}</option>  
-                    @endforeach          
+                        @foreach($tags as $tag)
+                        <option value="{{ $tag->id }}">{{ $tag->tag }}</option>  
+                        @endforeach          
                     </select>
-                </div>
-                <!-- <div class="form-group">
+                </div> -->
+                <div class="form-group">
                     <label for="tags">Select Tags</label>
                     <br>
                     @foreach($tags as $tag)
                           <label><input type="checkbox" name="tags[]" value="{{ $tag->id }}"> {{ $tag->tag }}</label>           
                     @endforeach 
-                </div> -->
+                </div>
                 <div class="form-group">
                     <label for="image_link">Featured Image</label>
                     <input type="file" name="image_link" class="form-control">

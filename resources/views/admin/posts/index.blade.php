@@ -41,9 +41,13 @@
                                         Edit
                                     </a>
                                     @else
-                                    <a href="{{ route('post.restore', ['id' => $post->id]) }}" class="btn btn-sm btn-success">
-                                        Restore
-                                    </a>
+                                    <form action="{{ route('post.restore', ['id' => $post->id]) }}" method="POST">
+                                    @csrf
+
+                                    @method('PUT')
+                                        <button class="btn btn-sm btn-success" type="submit">Restore</button>
+                                    </form>
+                                    
                                     @endif
                                 </td>
                                 <td>
