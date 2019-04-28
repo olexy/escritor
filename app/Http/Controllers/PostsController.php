@@ -14,6 +14,10 @@ use App\Http\Requests\Posts\UpdatePostRequest;
 
 class PostsController extends Controller
 {
+    // public function _construct()
+    // {
+    //     $this->middleware('verifyCategoriesCount')->only(['create', 'store']);
+    // }
    
     public function index()
     {

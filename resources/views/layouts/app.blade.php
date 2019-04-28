@@ -43,6 +43,12 @@
     @endif    
 </script>
 
+<script>
+    @if(Session::has('error'))
+        toastr.info("{{ Session::get('error') }}")
+    @endif    
+</script>
+
 
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">

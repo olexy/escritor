@@ -7,13 +7,13 @@
             <table class="table table-hover table-striped  table-dark">
                 <thead class="thead-light">
                     <th>
-                    Category name
+                        Category name
                     </th>
                     <th>
-                        Editing category
+                        No. of Posts
                     </th>
                     <th>
-                        Deleting category
+                        Actions
                     </th>
                 </thead>       
                     
@@ -25,15 +25,17 @@
                                     {{ $category->name}}
                                 </td>
                                 <td>
+                                    {{ $category->posts->count()}}
+                                </td>
+                                <td>
                                     <a href="{{ route('category.edit', ['id' => $category->id]) }}" class="btn btn-sm btn-info">
                                     Edit
                                     </a>
-                                </td>
 
-                                <td>
                                     <a href="{{ route('category.delete', ['id' => $category->id]) }}" class="btn btn-sm btn-danger">
                                     Delete
                                     </a>
+
                                 </td>
                             </tr>                
                         @endforeach

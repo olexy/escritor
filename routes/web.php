@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     //POST ROUTES
 
 
-    Route::get('/post/create', 'PostsController@create')->name('post.create');
+    Route::get('/post/create', 'PostsController@create')->name('post.create')->middleware('verifyCategoriesCount');
 
     Route::resource('posts', 'PostsController');
 

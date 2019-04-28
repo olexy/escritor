@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Post;
 
 use Session;
 
@@ -17,7 +18,6 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        // $categories = Category::all();
         return view('admin.categories.index')->with('categories', Category::all());
     }
 

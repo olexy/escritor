@@ -12,13 +12,13 @@
                         Title
                     </th>
                     <th>
+                        Category
+                    </th>
+                    <th>
                         Blurb
                     </th>
                     <th>
-                        Edit
-                    </th>
-                    <th>
-                        Trash
+                       Activity
                     </th>
                 </thead>       
                     
@@ -31,6 +31,9 @@
                                 </td>
                                 <td>
                                     {{ $post->title }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('category.edit', ['id' => $post->category->id]) }}">{{ $post->category->name }}</a>
                                 </td>
                                 <td>
                                     {{ $post->description }}
@@ -49,15 +52,15 @@
                                     </form>
                                     
                                     @endif
-                                </td>
-                                <td>
+                                    <hr>
+
                                     <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')  
                                         <button type="submit" class="btn btn-sm btn-danger">
                                          {{ $post->trashed() ? 'Delete': 'Trash'}}
                                         </button>
-                                    </form>        
+                                    </form>       
                                 </td>
                             </tr>                
                         @endforeach
