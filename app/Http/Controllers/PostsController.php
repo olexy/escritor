@@ -61,7 +61,9 @@ class PostsController extends Controller
             'slug' => str_slug($request->title)
         ]);
 
-        $post->tags()->attach($request->tags);
+        if($request->tags){
+            $post->tags()->attach($request->tags);
+        }        
 
         Session()->flash('success', 'Post created successfully!');
 

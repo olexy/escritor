@@ -56,11 +56,21 @@
                     </select>
                 </div> -->
                 <div class="form-group">
+                @if($tag->count() > 0)
                     <label for="tags">Select Tags</label>
                     <br>
-                    @foreach($tags as $tag)
-                          <label><input type="checkbox" name="tags[]" value="{{ $tag->id }}"> {{ $tag->tag }}</label>           
-                    @endforeach 
+                    <select class="form-control tags-selector" multiple="multiple" name="tags[]">
+                        @foreach($tags as $tag)
+                            <option value="{{ $tag->id }}"
+                            @if(isset($post))
+                                 @if($post->hasTag($tag->id))
+                                    selected
+                                 @endif
+                            @endif
+                            >{{ $tag->tag }}</option>
+                        @endforeach
+                    </select>
+                @endif
                 </div>
                 <div class="form-group">
                     <label for="image_link">Featured Image</label>
@@ -91,11 +101,17 @@
 @section('script')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <script>
     flatpickr("#published_at", {
         enableTime: true,
         dateFormat: "Y-m-d H:i"
+    });
+
+    
+    $(".tags-selector").select2({
+    tags: true
     });
 </script>
 
@@ -104,5 +120,6 @@
 @section('css')
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 @endsection

@@ -15,6 +15,9 @@
                         Category
                     </th>
                     <th>
+                        Tags
+                    </th>
+                    <th>
                         Blurb
                     </th>
                     <th>
@@ -36,6 +39,9 @@
                                     <a href="{{ route('category.edit', ['id' => $post->category->id]) }}">{{ $post->category->name }}</a>
                                 </td>
                                 <td>
+                                    {{ $post->tags->count() }}
+                                </td>
+                                <td>
                                     {{ $post->description }}
                                 </td>
                                 <td>
@@ -54,12 +60,34 @@
                                     @endif
                                     <hr>
 
-                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                    <form action=""  method="POST" id="deleteCategoryForm">
                                         @csrf
                                         @method('DELETE')  
-                                        <button type="submit" class="btn btn-sm btn-danger">
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="handleDelete({{ $post->id }})">
                                          {{ $post->trashed() ? 'Delete': 'Trash'}}
                                         </button>
+                                         <!-- Modal -->
+                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel">Trashing post</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-center"> 
+                                                        Are you sure you wan to trash this post?
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Go Back</button>
+                                                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </form>       
                                 </td>
                             </tr>                
@@ -72,6 +100,20 @@
                     @endif                 
                 </tbody>
             </table>
+
+           
     </div>
+@section('script')
+    <script>
+        function handleDelete(id)
+        {
+            var form = document.getElementById('deleteCategoryForm')
+            form.action="{{ route('posts.destroy', '')}}/" + id
+            $('#deleteModal').modal('show')
+        }
+    </script>
+
+@endsection
+
 
 @stop

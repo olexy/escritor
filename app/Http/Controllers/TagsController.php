@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Tag;
+use App\Post;
 Use Session;
 use Validator;
 
@@ -19,6 +20,7 @@ class TagsController extends Controller
     {
         if(request()->ajax())
         {
+
             return datatables()->of(Tag::latest()->get())
                     ->addColumn('action', function($data){
                         $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
@@ -152,7 +154,16 @@ class TagsController extends Controller
      */
     public function destroy($id)
     {
-        $data = Tag::findOrFail($id);
-        $data->delete();
+        $tag= Tag::findOrFail($id);
+
+        if($tag->posts->count(0) > 0)
+        {
+            Session::flash('error', 'You cannot delete a tag with existing post(s)');
+
+            return redirect()->back();
+
+        }
+       
+        $tag->delete();
     }
 }

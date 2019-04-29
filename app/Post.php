@@ -42,10 +42,15 @@ class Post extends Model
     
     public function category()
     {
-        return $this->belongsTo('App\Category');
+        return $this->belongsTo(Category::class);
     }
 
     public function tags(){
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function hasTag($tagid)
+    {
+        return in_array($tagid, $this->tags->pluck('id')->toArray());
     }
 }
