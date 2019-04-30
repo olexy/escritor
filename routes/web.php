@@ -24,7 +24,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     //POST ROUTES
 
-
     Route::get('/post/create', 'PostsController@create')->name('post.create')->middleware('verifyCategoriesCount');
 
     Route::resource('posts', 'PostsController');
@@ -42,7 +41,43 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     // Route::get('/post/destroy/{id}', 'PostsController@permDelete')->name('post.destroy');
     
 
-     //CATEGORY ROUTES     
+    //TAG ROUTES   
+    Route::get('/tags', 'TagsController@index')->name('tags');
+    
+    Route::get('/tag/create', 'TagsController@create')->name('tag.create');
+
+    Route::post('/tag/store', 'TagsController@store')-> name('tag.store');
+
+    Route::get('/tag/edit/{id}', 'TagsController@edit')->name('tag.edit');
+
+    Route::post('/tag/update', 'TagsController@update')->name('tag.update');
+ 
+    Route::get('/tag/delete/{id}', 'TagsController@destroy')->name('tag.delete');  
+
+
+    //USERS ROUTES 
+    Route::get('/users/profile', 'UsersController@edit')->name('users.edit-profile');
+
+    Route::put('/users/profile', 'UsersController@update')->name('users.update-profile');
+
+ 
+});
+
+Route::group([
+    'prefix'     => 'admin',
+    'middleware' => [
+        'auth',
+        'verifyIsAdmin',
+    ],
+], function() {
+    //ADMIN USERS ROUTES   
+    Route::resource('users', 'UsersController');
+
+    Route::post('users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
+
+    Route::post('users/{user}/revoke-admin', 'UsersController@revokeAdmin')->name('users.revoke-admin');
+
+    //CATEGORY ROUTES     
     Route::get('/category/create', 'CategoriesController@create')->name('category.create');
 
     Route::get('/category/edit/{id}', 'CategoriesController@edit')->name('category.edit');
@@ -56,24 +91,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::post('/category/store', 'CategoriesController@store')->name('category.store');
 
     Route::post('/category/update/{id}', 'CategoriesController@update')->name('category.update');
-
-    //TAG ROUTES   
-    Route::get('/tags', 'TagsController@index')->name('tags');
-    
-    Route::get('/tag/create', 'TagsController@create')->name('tag.create');
-
-    Route::post('/tag/store', 'TagsController@store')-> name('tag.store');
-
-    Route::get('/tag/edit/{id}', 'TagsController@edit')->name('tag.edit');
-
-    Route::post('/tag/update', 'TagsController@update')->name('tag.update');
- 
-    Route::get('/tag/delete/{id}', 'TagsController@destroy')->name('tag.delete');   
 });
 
-Route::get('/test', function(){
-    return App\Tag::find(5)->posts;
-});  
+
+// Route::get('/test', function(){
+//     return App\Tag::find(5)->posts;
+// });  
 
 View::composer(['layouts.app'], function($view){
     $trashed = Post::onlyTrashed()->get();

@@ -85,6 +85,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('users.edit-profile') }}">
+                                            My Profile
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -112,26 +115,35 @@
                                     <a href="{{ route('home') }}" class="href">Home</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="{{ route('categories') }}" class="href">View categories</a>
-                                </li>
-                                <li class="list-group-item">
                                     <a href="{{ route('posts.index') }}" class="href">All posts</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{ route('tags') }}" class="href">Tags</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{ route('category.create') }}" class="href">Create new category</a>
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ route('post.create') }}" class="href">Create new post</a>
                                 </li>
+                                <li class="list-group-item">
+                                    <a href="{{ route('tags') }}" class="href">Tags</a>
+                                </li>
+                                @if(auth()->user()->isAdmin())
+                                    <li class="list-group-item">
+                                        <a href="{{ route('categories') }}" class="href">View categories</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="{{ route('category.create') }}" class="href">Create new category</a>
+                                    </li>
+                                @endif
                             </ul>
                             <ul class="list-group">
                                 <li class="list-group-item list-group-item-danger mt-3">
                                     <a href="{{ route('trashed-post.index') }}" class="href">Trashed posts <span class="badge badge-primary badge-pill">{{$trashed->count() }}</span></a>
                                 </li>
                             </ul>
+                            @if(auth()->user()->isAdmin())
+                                <ul class="list-group">
+                                    <li class="list-group-item list-group-item-info mt-3">
+                                        <a href="{{route('users.index')}}" class="href">Users <span class="badge badge-primary badge-pill">some</span></a>
+                                    </li>
+                                </ul>
+                            @endif
                         </div>
                     @endif
                     <div class="col-lg-8">
