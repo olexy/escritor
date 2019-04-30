@@ -44,7 +44,7 @@
                                         @csrf
                                         <button class="btn btn-sm btn-success" type="submit">Make Admin</button>
                                     </form>
-                                @else
+                                @elseif(!$user->isSuperAdmin() || !auth()->user())
                                      <form action="{{ route('users.revoke-admin', $user->id) }}" method="POST">
                                         @csrf
                                         <button class="btn btn-sm btn-danger" type="submit">Revoke Admin</button>
