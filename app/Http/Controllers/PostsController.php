@@ -58,7 +58,8 @@ class PostsController extends Controller
             'content' => $request->content,
             'image_link' => 'storage/'. $image,
             'published_at' => $request->published_at,
-            'slug' => str_slug($request->title)
+            'slug' => str_slug($request->title),
+            'user_id' => auth()->user()->id
         ]);
 
         if($request->tags){
@@ -96,8 +97,10 @@ class PostsController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('admin.posts.create')->with('post', $post)                     ->with('categories', $categories)
-                            ->with('tags', $tags);
+        return view('admin.posts.create')
+                    ->with('post', $post)                     
+                    ->with('categories', $categories)
+                    ->with('tags', $tags);
     }
 
     /**
@@ -175,15 +178,5 @@ class PostsController extends Controller
         return redirect()->route('posts.index'); 
     }
 
-    // public function permDelete($id)
-    // {
-    //     $post = Post::withTrashed()->where('id', $id)->first();
-    //     //Dd($post);
-    //     $post->forceDelete();
-        
-    //     Session::flash('success', 'Post permanently deleted');
-
-    //     return redirect()->back();
-       
-    // }
+    
 }

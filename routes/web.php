@@ -11,10 +11,15 @@
 |
 */
 use App\Post;
+use App\Category;
+use App\Tag;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'PortalController@index')->name('welcome');
+Route::get('/portal/{post}', 'PortalController@detailedPage')->name('post.detail');
+
+
+
 
 Auth::routes();
 
@@ -27,6 +32,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/post/create', 'PostsController@create')->name('post.create')->middleware('verifyCategoriesCount');
 
     Route::resource('posts', 'PostsController');
+    
+    Route::post('/post/store', 'PostsController@store')-> name('post.store');
 
     Route::get('/posts/{post}', 'PostsController@edit')->name('posts.edit');
 
@@ -84,10 +91,8 @@ Route::group([
 
     Route::get('/category/delete/{id}', 'CategoriesController@destroy')->name('category.delete');
 
-    Route::get('/categories', 'CategoriesController@index')->name('categories');
-    
-    Route::post('/post/store', 'PostsController@store')-> name('post.store');
-    
+    Route::get('/categories', 'CategoriesController@index')->name('categories');  
+
     Route::post('/category/store', 'CategoriesController@store')->name('category.store');
 
     Route::post('/category/update/{id}', 'CategoriesController@update')->name('category.update');
@@ -102,6 +107,13 @@ View::composer(['layouts.app'], function($view){
     $trashed = Post::onlyTrashed()->get();
 
     $view->with('trashed', $trashed);
+});
+
+View::composer(['layouts.portal'], function($view){
+    $categories = Category::all();
+    $tags = Tag::all();
+
+    $view->with('categories', $categories)->with('tags', $tags);
 });
 
 
