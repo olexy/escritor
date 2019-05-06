@@ -77,8 +77,8 @@
 						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">
-							<form>
-								<input class="input" name="search" placeholder="Enter your search...">
+							<form action="{{ route('welcome') }}" method="GET">
+								<input class="input" name="search" placeholder="Enter your search..." value="{{ request()->query('search') }}">
 							</form>
 							<button class="nav-close search-close">
 								<span></span>
@@ -111,8 +111,8 @@
 							</div>
                         </li>
                         @foreach($categories_7 as $category)
-						    <li class="has-dropdown megamenu">                         
-							<a href="#">{{ $category->name }}</a>					
+						    <li class="has-dropdown megamenu">                        
+							<a href="{{ route('category.posts', $category->id) }}">{{ $category->name }}</a>					
                         @endforeach
 						</li>
 
@@ -187,7 +187,7 @@
 						<div class="tags-widget">
 							<ul>
                             @foreach($tags as $tag)
-                                <li><a href="#" value="{{$tag->id}}">{{$tag->tag}}</a></li>
+                                <li><a href="{{ route('tag.posts', $tag->id) }}">{{$tag->tag}}</a></li>
                             @endforeach		
                             </ul>                           
                         </div>                       

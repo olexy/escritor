@@ -16,7 +16,12 @@ use App\Tag;
 
 
 Route::get('/', 'PortalController@index')->name('welcome');
+
 Route::get('/portal/{post}', 'PortalController@detailedPage')->name('post.detail');
+
+Route::get('/portal/category/{category}', 'PortalController@categoryPosts')->name('category.posts');
+
+Route::get('/portal/tag/{tag}', 'PortalController@tagPosts')->name('tag.posts');
 
 
 

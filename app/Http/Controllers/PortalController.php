@@ -18,12 +18,22 @@ class PortalController extends Controller
      */
     public function index()
     {
+        $search = request()->query('search');
+
+        if($search)
+        {
+            $posts = Post::where('title', 'LIKE', "%{$search}%")->paginate(4);
+
+        } else {
+            $posts = Post::paginate(6);
+        }
+    
         $latest_post = Post::all()->last();
 
         $categories_7 = Category::orderBy('id', 'desc')->take(7)->get();
 
         return view('welcome')
-                    ->with('posts', Post::all())
+                    ->with('posts', $posts)
                     ->with('categories', Category::all())
                     ->with('tags', Tag::all())
                     ->with('categories_7', $categories_7)
@@ -51,53 +61,31 @@ class PortalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function categoryPosts(Category $category)
     {
-        //
+        $categories_7 = Category::orderBy('id', 'desc')->take(7)->get();
+
+        $post = $category->posts()->paginate(4);
+
+        return view('portal.category')
+                ->with('categories_7', $categories_7)
+                ->with('posts', $post)
+                ->with('category', $category)
+                ->with('categories', Category::all());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function tagPosts(Tag $tag)
     {
-        //
+        $categories_7 = Category::orderBy('id', 'desc')->take(7)->get();
+
+        $post = $tag->posts()->paginate(4);
+
+        return view('portal.tag')
+                ->with('categories_7', $categories_7)
+                ->with('posts', $post)
+                ->with('tag', $tag)
+                ->with('categories', Category::all());
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }
