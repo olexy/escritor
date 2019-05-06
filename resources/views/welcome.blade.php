@@ -23,7 +23,8 @@
 							</div>
 							<h3 class="post-title title-lg"><a href="{{ route('post.detail', $latest_post->id) }}">{{$latest_post->title }}</a></h3>
 							<ul class="post-meta">
-								<li><a href="author.html">{{$latest_post->user->name}}</a></li>
+								<li><a href="author.html"><img src="{{ Gravatar::src($latest_post->user->email) }}" alt="" height="40px" width="40px" style="border-radius:50%">
+								{{$latest_post->user->name}}</a></li>
 								<li>20 April 2018</li>
 							</ul>
 						</div>
@@ -97,7 +98,9 @@
 									</div>
 									<h3 class="post-title"><a href="{{ route('post.detail', $post->id) }}">{{ $post->title }}</a></h3>
 									<ul class="post-meta">
-										<li><a href="author.html">{{$post->user->name}} </a></li>
+										<li><a href="author.html">
+										<img src="{{ Gravatar::src($post->user->email) }}" alt="" height="20px" width="20px" style="border-radius:50%">
+										{{$post->user->name}} </a></li>
 										<li>{{$post->published_at}}</li>
 									</ul>
 								</div>

@@ -68,7 +68,7 @@
 
 					<!-- logo -->
 					<div class="nav-logo">
-						<a href="index.html" class="logo"><img src="./img/logo.png" alt=""></a>
+						<a href="{{ route('welcome') }}" class="logo"><img src="{{ asset('img/logo.png')}}" alt=""></a>
 					</div>
 					<!-- /logo -->
 
@@ -98,12 +98,10 @@
 					<!-- nav -->
 					<ul class="nav-menu">
 						<li class="has-dropdown">
-							<a href="index.html">Home</a>
+							<a href="{{ route('welcome') }}">Home</a>
 							<div class="dropdown">
 								<div class="dropdown-body">
 									<ul class="dropdown-list">
-										<li><a href="category.html">Category page</a></li>
-										<li><a href="blog-post.html">Post page</a></li>
 										<li><a href="author.html">Author page</a></li>
 										<li><a href="about.html">About Us</a></li>
 										<li><a href="contact.html">Contacts</a></li>
@@ -112,7 +110,7 @@
 								</div>
 							</div>
                         </li>
-                        @foreach($categories as $category)
+                        @foreach($categories_7 as $category)
 						    <li class="has-dropdown megamenu">                         
 							<a href="#">{{ $category->name }}</a>					
                         @endforeach
@@ -160,7 +158,7 @@
 				<div class="col-md-3">
 					<div class="footer-widget">
 						<div class="footer-logo">
-							<a href="index.html" class="logo"><img src="./img/logo-alt.png" alt=""></a>
+							<a href="{{route('welcome')}}" class="logo"><img src="{{ asset('img/logo-alt.png') }}" alt=""></a>
 						</div>
 						<p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
 						<ul class="contact-social">
@@ -173,14 +171,14 @@
 				</div>
 				<div class="col-md-3">
 					<div class="footer-widget">
-						<h3 class="footer-title">Categories</h3>
-						<div class="category-widget">
+						<!-- <h3 class="footer-title">Categories</h3> -->
+						<!-- <div class="category-widget">
 							<ul>
                             @foreach($categories as $category)
                                 <li><a href="#">{{ $category->name }} <span>{{$category->posts->count()}}</span></a></li>
                             @endforeach
 							</ul>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="col-md-3">

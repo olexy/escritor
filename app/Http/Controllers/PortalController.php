@@ -20,10 +20,13 @@ class PortalController extends Controller
     {
         $latest_post = Post::all()->last();
 
+        $categories_7 = Category::orderBy('id', 'desc')->take(7)->get();
+
         return view('welcome')
                     ->with('posts', Post::all())
                     ->with('categories', Category::all())
                     ->with('tags', Tag::all())
+                    ->with('categories_7', $categories_7)
                     ->with('latest_post', $latest_post);
     }
 
@@ -34,7 +37,12 @@ class PortalController extends Controller
      */
     public function detailedPage(Post $post)
     {
-        return view('portal.show')->with('post', $post);
+        $categories_7 = Category::orderBy('id', 'desc')->take(7)->get();
+        
+        return view('portal.show')
+                ->with('post', $post)
+                ->with('categories_7', $categories_7)
+                ->with('categories', Category::all());
     }
 
     /**
