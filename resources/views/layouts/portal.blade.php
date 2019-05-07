@@ -77,7 +77,7 @@
 						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">
-							<form action="{{ route('welcome') }}" method="GET">
+							<form action="" method="GET">
 								<input class="input" name="search" placeholder="Enter your search..." value="{{ request()->query('search') }}">
 							</form>
 							<button class="nav-close search-close">
@@ -238,6 +238,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cd13e4751242626"></script> 
+	<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5cd13e4751242626"></script> 
 
 </body>
 

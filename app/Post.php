@@ -12,6 +12,7 @@ class Post extends Model
 
     use SoftDeletes;
 
+
     protected $fillable = [
         'title', 'content', 'category_id', 'description', 'published_at', 'image_link', 'slug', 'user_id'
     ];
@@ -58,4 +59,22 @@ class Post extends Model
     {
         return in_array($tagid, $this->tags->pluck('id')->toArray());
     }
+
+    public function scopePublished($query)
+    {
+       return $query->where('published_at', '<=', now());
+    }
+
+    public function scopeSearched($query)
+    {
+        $search = request()->query('search');
+
+        if(!$search)
+        {
+            return $query->published();
+        }
+
+        return $query->published()->where('title', 'LIKE', "%{$search}%");
+    }
+
 }

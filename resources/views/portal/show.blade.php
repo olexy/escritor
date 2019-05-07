@@ -12,12 +12,7 @@
             <div class="col-md-8">
                 <!-- post share -->
                 <div class="section-row">
-                    <div class="post-share">
-                        <a href="#" class="social-facebook"><i class="fa fa-facebook"></i><span>Share</span></a>
-                        <a href="#" class="social-twitter"><i class="fa fa-twitter"></i><span>Tweet</span></a>
-                        <a href="#" class="social-pinterest"><i class="fa fa-pinterest"></i><span>Pin</span></a>
-                        <a href="#" ><i class="fa fa-envelope"></i><span>Email</span></a>
-                    </div>
+                    <div class="addthis_inline_share_toolbox"></div>
                 </div>
             <div class="section-row">
                 <h3> {{$post->title}}  </h3>
@@ -36,8 +31,8 @@
                 <div class="post-tags">
                     <ul>
                         <li>TAGS:</li>
-                        @foreach($post->tags as $tags)
-                        <li><a href="#">{{ $tags->tag }}</a></li>
+                        @foreach($post->tags as $tag)
+                        <li><a href="{{ route('tag.posts', $tag->id) }}">{{ $tag->tag }}</a></li>
                         @endforeach
                     </ul>
                 </div>
