@@ -77,4 +77,9 @@ class Post extends Model
         return $query->published()->where('title', 'LIKE', "%{$search}%");
     }
 
+    public function scopePublatest($query)
+    {
+       return $query->where('published_at', '<=', now())->where('category_id', '!=', 11);
+    }
+
 }

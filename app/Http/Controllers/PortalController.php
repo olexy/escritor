@@ -13,26 +13,20 @@ class PortalController extends Controller
 {
     public function index()
     {
-        // $search = request()->query('search');
+           
+        $latest_post = Post::publatest()->latest()->first();
 
-        // if($search)
-        // {
-        //     $posts = Post::where('title', 'LIKE', "%{$search}%")->paginate(4);
-
-        // } else {
-        //     $posts = Post::paginate(6);
-        // }
-    
-        $latest_post = Post::all()->last();
+        $breaking_posts = Post::published()->where('category_id', 11)->orderBy('id', 'desc')->take(2)->get();
 
         $categories_7 = Category::orderBy('id', 'desc')->take(7)->get();
 
         return view('welcome')
-                    ->with('posts', Post::searched()->paginate(6))
-                    ->with('categories', Category::all())
-                    ->with('tags', Tag::all())
-                    ->with('categories_7', $categories_7)
-                    ->with('latest_post', $latest_post);
+                ->with('posts', Post::searched()->orderBy('published_at', 'desc')->paginate(6))
+                ->with('categories', Category::all())
+                ->with('tags', Tag::all())
+                ->with('categories_7', $categories_7)
+                ->with('latest_post', $latest_post)
+                ->with('breaking_posts', $breaking_posts);
     }
 
 

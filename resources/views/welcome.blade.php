@@ -19,9 +19,9 @@
 						<a class="post-img" href="blog-post.html"><img src="{{ asset($latest_post->image_link)}}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
-								<a href="category.html">Lifestyle</a>
+								<a href="category.html">{{ $latest_post->category->name }}</a>
 							</div>
-							<h3 class="post-title title-lg"><a href="{{ route('post.detail', $latest_post->id) }}">{{$latest_post->title }}</a></h3>
+							<h3 class="post-title title-lg"><a href="{{ route('post.detail', $latest_post->id) }}">{{ $latest_post->title }}</a></h3>
 							<ul class="post-meta">
 								<li><a href="author.html"><img src="{{ Gravatar::src($latest_post->user->email) }}" alt="" height="40px" width="40px" style="border-radius:50%">
 								{{$latest_post->user->name}}</a></li>
@@ -33,37 +33,24 @@
 				</div>
 				<div class="col-md-4 hot-post-right">
 					<!-- post -->
+					@foreach($breaking_posts as $breaking_post)
 					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src="./img/hot-post-2.jpg" alt=""></a>
+						<a class="post-img" href="blog-post.html"><img src="{{ asset($breaking_post->image_link)}}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
-								<a href="category.html">Lifestyle</a>
+								<a href="category.html">{{ $breaking_post->category->name }}</a>
 							</div>
-							<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
+							<h3 class="post-title"><a href="{{ route('post.detail', $breaking_post->id) }}">{{ $breaking_post->title }}</a></h3>
 							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
+								<li><a href="author.html">
+								<img src="{{ Gravatar::src($breaking_post->user->email) }}" alt="" height="20px" width="20px" style="border-radius:50%">
+								{{$breaking_post->user->name}}</a></li>
+								<li>{{ $breaking_post->published_at }}</li>
 							</ul>
 						</div>
+						
 					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src="./img/hot-post-3.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Fashion</a>
-								<a href="category.html">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-						</div>
-					</div>
-					<!-- /post -->
+					@endforeach
 				</div>
 			</div>
 			<!-- /row -->
