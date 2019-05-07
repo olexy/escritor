@@ -18,6 +18,12 @@ class PortalController extends Controller
 
         $breaking_posts = Post::published()->where('category_id', 11)->orderBy('id', 'desc')->take(2)->get();
 
+        $politics_posts = Post::published()->where('category_id', 3)->orderBy('id', 'desc')->take(3)->get();
+
+        $business_posts = Post::published()->where('category_id', 1)->orderBy('id', 'desc')->take(3)->get();
+
+        $finance_posts = Post::published()->where('category_id', 2)->orderBy('id', 'desc')->take(3)->get();
+
         $categories_7 = Category::orderBy('id', 'desc')->take(7)->get();
 
         return view('welcome')
@@ -26,7 +32,12 @@ class PortalController extends Controller
                 ->with('tags', Tag::all())
                 ->with('categories_7', $categories_7)
                 ->with('latest_post', $latest_post)
-                ->with('breaking_posts', $breaking_posts);
+                ->with('breaking_posts', $breaking_posts)
+                ->with('politics_posts', $politics_posts)
+                ->with('business_posts', $business_posts)
+                ->with('finance_posts', $finance_posts);
+
+        
     }
 
 
