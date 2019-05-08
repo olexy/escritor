@@ -19,10 +19,10 @@
                 <li><a href="author.html">{{$post->user->name}}</a></li>
                 {{ $post->description }}
                 <figure class="pull-right">
-                    <img src="{{ $post->image_link }}" alt="" height="200" style="250">
+                    <img src="{{ $post->image_link }}">
                     <figcaption>Lorem ipsum dolor sit amet, mea ad idque detraxit,</figcaption>
                 </figure>
-                <p> {!!  $post->content !!}
+                <p> {!! $post->content !!}
             </div>
             <!-- /post content -->
 

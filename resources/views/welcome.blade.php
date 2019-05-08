@@ -16,7 +16,7 @@
 				<div class="col-md-8 hot-post-left">
 					<!-- post -->
 					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src="{{ asset($latest_post->image_link)}}" alt=""></a>
+						<a class="post-img img-thumbnail" href="blog-post.html"><img src="{{ asset($latest_post->image_link)}}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
 								<a href="category.html">{{ $latest_post->category->name }}</a>
@@ -35,7 +35,7 @@
 					<!-- post -->
 					@foreach($breaking_posts as $breaking_post)
 					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src="{{ asset($breaking_post->image_link)}}" alt=""></a>
+						<a class="post-img img-thumbnail" href="blog-post.html"><img src="{{ asset($breaking_post->image_link)}}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
 								<a href="category.html">{{ $breaking_post->category->name }}</a>
@@ -78,7 +78,7 @@
 						<div class="col-md-6">
                             
 							<div class="post">
-								<a class="post-img" href=""><img src="{{ asset($post->image_link) }}" alt="" ></a>
+								<a class="post-img img-thumbnail" href=""><img src="{{ asset($post->image_link) }}" alt="" ></a>
 								<div class="post-body">
 									<div class="post-category">
 										<a href="">{{ $post->category->name }}</a>
@@ -128,7 +128,7 @@
 						@foreach($politics_posts as $politics_post)
 						<div class="col-md-4">
 							<div class="post post-sm">
-								<a class="post-img" href="blog-post.html"><img src="{{ asset($politics_post->image_link) }}" alt=""></a>
+								<a class="post-img img-thumbnail" href="blog-post.html"><img src="{{ asset($politics_post->image_link) }}" alt=""></a>
 								<div class="post-body">
 									<div class="post-category">
 										<a href="category.html">{{$politics_post->category->name}}</a>
@@ -157,7 +157,7 @@
 						@foreach($business_posts as $business_post)
 						<div class="col-md-4">
 							<div class="post post-sm">
-								<a class="post-img" href="blog-post.html"><img src="{{ asset($business_post->image_link) }}" alt=""></a>
+								<a class="post-img img-thumbnail" href="blog-post.html"><img src="{{ asset($business_post->image_link) }}" alt=""></a>
 								<div class="post-body">
 									<div class="post-category">
 										<a href="category.html">{{$business_post->category->name}}</a>
@@ -186,7 +186,7 @@
 						@foreach($finance_posts as $finance_post)
 						<div class="col-md-4">
 							<div class="post post-sm">
-								<a class="post-img" href="blog-post.html"><img src="{{ asset($finance_post->image_link) }}" alt=""></a>
+								<a class="post-img img-thumbnail" href="blog-post.html"><img src="{{ asset($finance_post->image_link) }}" alt=""></a>
 								<div class="post-body">
 									<div class="post-category">
 										<a href="category.html">{{$finance_post->category->name}}</a>
